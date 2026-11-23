@@ -67,9 +67,6 @@ def waves():
 
         for i in range(firstWaveMinimum):
             createEnemy()
-        for i in range(firstWaveMinimum):
-            drawEnemy()
-
 
 def createEnemy():
     enemySpeed = 4
@@ -92,10 +89,10 @@ def createEnemy():
 
 def drawEnemy():
     for enemy in enemies:
-        enemyX = enemies[enemy]['x']
-        enemyY = enemies[enemy]['y']
-        enemyRadius = enemies[enemy]['radius']
-        pygame.draw.circle(screen, (255, 0, 0), (enemyX, enemyY), enemyRadius)
+        enemyX = enemy['x']
+        enemyY = enemy['y']
+        enemyRadius = enemy['radius']
+        pygame.draw.circle(screen, (255, 0, 0), (int(enemyX), int(enemyY)), enemyRadius)
 
     
 def drawBullets():
