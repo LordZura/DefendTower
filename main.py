@@ -85,6 +85,7 @@ def createEnemy():
     enemySpeed = 0.5
     enemyHealth = 3
     enemyRadius = 20
+    enemyPoints = 5
 
     angle = random.uniform(0, 2 * math.pi)
     enemyDistance = random.uniform(enemySpawnDistance, enemySpawnDistance * 2.2)
@@ -104,7 +105,8 @@ def createEnemy():
         'speed': enemySpeed,
         'health': enemyHealth,
         'radius': enemyRadius,
-        'angle': moveAngle
+        'angle': moveAngle,
+        'points': enemyPoints
     })
 
 
@@ -160,6 +162,7 @@ def drawBullets():
 
 
 def bulletCollision():
+    global points
     # checks every bullet against every enemy
     for bullet in bullets[:]:
         bulletX = bullet[0]
@@ -182,6 +185,7 @@ def bulletCollision():
                 # removes enemy when its health reaches zero
                 if enemy['health'] <= 0:
                     enemies.remove(enemy)
+                    points += enemy['points']
 
                 # one bullet can only hit one enemy
                 break
