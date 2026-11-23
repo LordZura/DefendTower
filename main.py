@@ -39,6 +39,7 @@ def render():
     # renders everything
     pygame.draw.circle(screen, (0, 150, 255), (playerX, playerY), 20)
     drawBullets()
+    drawEnemy()
 
 def shoot():
     # shooting positioning logics
@@ -66,11 +67,14 @@ def waves():
 
         for i in range(firstWaveMinimum):
             createEnemy()
+        for i in range(firstWaveMinimum):
+            drawEnemy()
 
 
 def createEnemy():
     enemySpeed = 4
     enemyHealth = 3
+    enemyRadius = 20
 
     angle = random.uniform(0, 2*math.pi)
     enemyDistance = enemySpawnDistance * random.uniform(0.9, 1.3)
@@ -82,10 +86,18 @@ def createEnemy():
         'x': enemyX,
         'y': enemyY,
         'speed': enemySpeed,
-        'health': enemyHealth
+        'health': enemyHealth,
+        'radius': enemyRadius
     })
-    
 
+def drawEnemy():
+    for enemy in enemies:
+        enemyX = enemies[enemy]['x']
+        enemyY = enemies[enemy]['y']
+        enemyRadius = enemies[enemy]['radius']
+        pygame.draw.circle(screen, (255, 0, 0), (enemyX, enemyY), enemyRadius)
+
+    
 def drawBullets():
     # bullet movement logics
     for bullet in bullets:
