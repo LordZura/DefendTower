@@ -1,3 +1,4 @@
+
 import pygame
 import math
 import random
@@ -9,9 +10,11 @@ font = pygame.font.Font(None, 36)
 
 screenX = 800
 screenY = 800
+menuX = 200
+windowX = screenX + menuX
 
 # prepare stuff
-screen = pygame.display.set_mode((screenX, screenY))
+screen = pygame.display.set_mode((windowX, screenY))
 pygame.display.set_caption("Defend Tower")
 
 running = True
@@ -46,8 +49,10 @@ def render():
     pygame.draw.circle(screen, (0, 150, 255), (playerX, playerY), 20)
     drawBullets()
     drawEnemy()
+
     waveText = font.render(f"Wave: {currentWave}", True, (255, 255, 255))
     pointsText = font.render(f"Points: {points}", True, (255, 255, 255))
+
     displayText(waveText, pointsText)
 
 
@@ -90,7 +95,6 @@ def createEnemy():
     angle = random.uniform(0, 2 * math.pi)
     enemyDistance = random.uniform(enemySpawnDistance, enemySpawnDistance * 2.2)
 
-    # spawn relative to the center of the screen
     enemyX = playerX + math.cos(angle) * enemyDistance
     enemyY = playerY + math.sin(angle) * enemyDistance
 
@@ -124,13 +128,11 @@ def drawEnemy():
         enemyX += movementX
         enemyY += movementY
 
-        enemyRadius = enemy['radius']
-
         pygame.draw.circle(
             screen,
             (255, 0, 0),
             (int(enemyX), int(enemyY)),
-            enemyRadius
+            enemy['radius']
         )
 
         enemy['x'] = enemyX
@@ -138,7 +140,6 @@ def drawEnemy():
 
 
 def drawBullets():
-    # bullet movement logics
     for bullet in bullets:
         angle = bullet[2]
 
@@ -163,7 +164,7 @@ def drawBullets():
 
 def bulletCollision():
     global points
-    # checks every bullet against every enemy
+
     for bullet in bullets[:]:
         bulletX = bullet[0]
         bulletY = bullet[1]
@@ -177,18 +178,16 @@ def bulletCollision():
 
             distance = math.sqrt(distanceX ** 2 + distanceY ** 2)
 
-            # checks if the bullet touches the enemy
             if distance <= bulletRadius + enemy['radius']:
                 enemy['health'] -= bulletDamage
                 bullets.remove(bullet)
 
-                # removes enemy when its health reaches zero
                 if enemy['health'] <= 0:
                     enemies.remove(enemy)
                     points += enemy['points']
 
-                # one bullet can only hit one enemy
                 break
+
 
 def displayText(waveText, pointsText):
     screen.blit(waveText, (20, 20))
@@ -196,8 +195,8 @@ def displayText(waveText, pointsText):
     pointsX = screenX - pointsText.get_width() - 20
     screen.blit(pointsText, (pointsX, 20))
 
+
 def removeOffscreenBullets():
-    # removes bullets that have travelled far outside the screen
     for bullet in bullets[:]:
         bulletX = bullet[0]
         bulletY = bullet[1]
@@ -210,7 +209,6 @@ def removeOffscreenBullets():
 clock = pygame.time.Clock()
 
 while running:
-    # check if player exits
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -220,12 +218,16 @@ while running:
     if mouseHeld[0]:
         currentTime = pygame.time.get_ticks()
 
-        if currentTime - lastShot >= firerate:
+        mouseX, mouseY = pygame.mouse.get_pos()
+
+        if mouseX < screenX and currentTime - lastShot >= firerate:
             shoot()
             lastShot = currentTime
 
-    # filling screen
     screen.fill((25, 25, 30))
+
+    # separate game area and menu area
+    pygame.draw.rect(screen, (35, 35, 42), (screenX, 0, menuX, screenY))
 
     render()
 
@@ -240,7 +242,6 @@ while running:
         currentWave += 1
         currentWaveProgressing = False
 
-    # fps limiter
     clock.tick(60)
 
 pygame.quit()
