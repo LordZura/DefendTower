@@ -8,6 +8,7 @@ pygame.init()
 pygame.font.init()
 font = pygame.font.Font(None, 36)
 menuFont = pygame.font.Font(None, 30)
+buttonFont = pygame.font.Font(None, 24)
 
 screenX = 800
 screenY = 800
@@ -189,16 +190,41 @@ def displayText(waveText, pointsText):
 
 
 def drawMenu():
-    # menu background
     pygame.draw.rect(screen, (35, 35, 42), (screenX, 0, menuX, screenY))
 
-    # menu separator
     pygame.draw.line(screen, (100, 100, 110),
                      (screenX, 0), (screenX, screenY), 2)
 
-    # menu title
     menuTitle = menuFont.render("UPGRADES", True, (255, 255, 255))
     screen.blit(menuTitle, (screenX + 35, 30))
+
+    # upgrade buttons
+    drawButton("Increase Damage", screenX + 15, 100)
+    drawButton("Increase Fire Rate", screenX + 15, 180)
+    drawButton("Regeneration", screenX + 15, 260)
+
+
+def drawButton(buttonText, buttonX, buttonY):
+    buttonWidth = 170
+    buttonHeight = 55
+
+    # button background
+    pygame.draw.rect(screen, (55, 55, 65),
+                     (buttonX, buttonY, buttonWidth, buttonHeight),
+                     border_radius=8)
+
+    # button border
+    pygame.draw.rect(screen, (100, 100, 115),
+                     (buttonX, buttonY, buttonWidth, buttonHeight),
+                     2, border_radius=8)
+
+    # button text
+    text = buttonFont.render(buttonText, True, (255, 255, 255))
+
+    textX = buttonX + (buttonWidth - text.get_width()) // 2
+    textY = buttonY + (buttonHeight - text.get_height()) // 2
+
+    screen.blit(text, (textX, textY))
 
 
 def removeOffscreenBullets():
