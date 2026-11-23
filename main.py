@@ -7,6 +7,7 @@ pygame.init()
 
 pygame.font.init()
 font = pygame.font.Font(None, 36)
+menuFont = pygame.font.Font(None, 30)
 
 screenX = 800
 screenY = 800
@@ -45,7 +46,6 @@ points = 0
 
 
 def render():
-    # renders everything
     pygame.draw.circle(screen, (0, 150, 255), (playerX, playerY), 20)
     drawBullets()
     drawEnemy()
@@ -54,10 +54,10 @@ def render():
     pointsText = font.render(f"Points: {points}", True, (255, 255, 255))
 
     displayText(waveText, pointsText)
+    drawMenu()
 
 
 def shoot():
-    # shooting positioning logics
     mouseX, mouseY = pygame.mouse.get_pos()
 
     distanceX = mouseX - playerX
@@ -128,12 +128,8 @@ def drawEnemy():
         enemyX += movementX
         enemyY += movementY
 
-        pygame.draw.circle(
-            screen,
-            (255, 0, 0),
-            (int(enemyX), int(enemyY)),
-            enemy['radius']
-        )
+        pygame.draw.circle(screen, (255, 0, 0),
+                           (int(enemyX), int(enemyY)), enemy['radius'])
 
         enemy['x'] = enemyX
         enemy['y'] = enemyY
@@ -148,12 +144,8 @@ def drawBullets():
 
         bulletX, bulletY = bullet[0], bullet[1]
 
-        pygame.draw.circle(
-            screen,
-            (0, 255, 255),
-            (int(bulletX), int(bulletY)),
-            bulletRadius
-        )
+        pygame.draw.circle(screen, (0, 255, 255),
+                           (int(bulletX), int(bulletY)), bulletRadius)
 
         bulletX += movementX
         bulletY += movementY
@@ -196,6 +188,19 @@ def displayText(waveText, pointsText):
     screen.blit(pointsText, (pointsX, 20))
 
 
+def drawMenu():
+    # menu background
+    pygame.draw.rect(screen, (35, 35, 42), (screenX, 0, menuX, screenY))
+
+    # menu separator
+    pygame.draw.line(screen, (100, 100, 110),
+                     (screenX, 0), (screenX, screenY), 2)
+
+    # menu title
+    menuTitle = menuFont.render("UPGRADES", True, (255, 255, 255))
+    screen.blit(menuTitle, (screenX + 35, 30))
+
+
 def removeOffscreenBullets():
     for bullet in bullets[:]:
         bulletX = bullet[0]
@@ -217,7 +222,6 @@ while running:
 
     if mouseHeld[0]:
         currentTime = pygame.time.get_ticks()
-
         mouseX, mouseY = pygame.mouse.get_pos()
 
         if mouseX < screenX and currentTime - lastShot >= firerate:
@@ -225,9 +229,6 @@ while running:
             lastShot = currentTime
 
     screen.fill((25, 25, 30))
-
-    # separate game area and menu area
-    pygame.draw.rect(screen, (35, 35, 42), (screenX, 0, menuX, screenY))
 
     render()
 
