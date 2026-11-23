@@ -59,16 +59,24 @@ def shoot():
 
 
 def waves():
+    global currentWaveProgressing
+
     if not currentWaveProgressing:
-        for i in range(1, int(firstWaveMinimum * progressingMultiplier)):
+        currentWaveProgressing = True
+
+        for i in range(firstWaveMinimum):
             createEnemy()
 
 
 def createEnemy():
     enemySpeed = 4
     enemyHealth = 3
-    enemyX = math.cos(random.uniform(0, 2*math.pi)) * ((playerX + enemySpawnDistance) * random.uniform(0.9, 1.3))
-    enemyY = math.sin(random.uniform(0, 2*math.pi)) * ((playerY + enemySpawnDistance) * random.uniform(0.9, 1.3))
+
+    angle = random.uniform(0, 2*math.pi)
+    enemyDistance = enemySpawnDistance * random.uniform(0.9, 1.3)
+
+    enemyX = playerX + math.cos(angle) * enemyDistance
+    enemyY = playerY + math.sin(angle) * enemyDistance
 
     enemies.append({
         'x': enemyX,
@@ -95,6 +103,8 @@ def drawBullets():
         bullet[0] = bulletX
         bullet[1] = bulletY
 
+clock = pygame.time.Clock()
+
 while running:
     # check if player exits
     for event in pygame.event.get():
@@ -116,9 +126,11 @@ while running:
     pygame.display.flip()
 
     waves()
+    if len(enemies) == 0 and currentWaveProgressing:
+        currentWave += 1
+        currentWaveProgressing = False
 
     # fps limiter
-    clock = pygame.time.Clock()
     clock.tick(60)
 
 
