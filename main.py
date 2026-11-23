@@ -20,6 +20,9 @@ bulletRadius = 7
 bulletSpeed = 10
 bulletOffset = 25
 
+firerate = 200
+lastShot = 0
+
 def render():
     # renders everything
     pygame.draw.circle(screen, (0, 150, 255), (playerX, playerY), 20)
@@ -65,7 +68,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            shoot()
+
+            currentTIme = pygame.time.get_ticks()
+
+            if currentTIme - lastShot >= firerate:
+                shoot()
+                lastShot = currentTIme
 
     # filling screen
     screen.fill((25, 25, 30))
