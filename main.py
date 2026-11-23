@@ -17,7 +17,10 @@ playerY = screenY // 2
 
 def shoot():
     mouseX, mouseY = pygame.mouse.get_pos()
+    bulletX = playerX
+    bulletY = playerY
     print(f"you clicked at: X: {mouseX} Y: {mouseY}")
+    print(f"bullet created at: X: {bulletX} Y: {bulletY}")
 
 while running:
     # check if player exits
