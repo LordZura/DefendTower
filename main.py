@@ -18,27 +18,32 @@ playerY = screenY // 2
 bullets = []
 bulletRadius = 7
 bulletSpeed = 10
+bulletOffset = 25
 
 def render():
+    # renders everything
     pygame.draw.circle(screen, (0, 150, 255), (playerX, playerY), 20)
     drawBullets()
 
 def shoot():
+    # shooting positioning logics
     mouseX, mouseY = pygame.mouse.get_pos()
-    bulletX = playerX
-    bulletY = playerY
 
     distanceX = mouseX - playerX
     distanceY = mouseY - playerY
 
     angle = math.atan2(distanceY, distanceX)
 
+    offsetX = math.cos(angle) * bulletOffset
+    offsetY = math.sin(angle) * bulletOffset
+
+    bulletX = playerX + offsetX
+    bulletY = playerY + offsetY
+
     bullets.append([bulletX, bulletY, angle])
 
-    print(f"you clicked at: X: {mouseX} Y: {mouseY}")
-    print(f"bullet created at: X: {bulletX} Y: {bulletY}")
-
 def drawBullets():
+    # bullet movement logics
     for bullet in bullets:
         angle = bullet[2]
         movementX = math.cos(angle) * bulletSpeed
@@ -67,6 +72,7 @@ while running:
     render()
     pygame.display.flip()
 
+    # fps limiter
     clock = pygame.time.Clock()
     clock.tick(60)
     
