@@ -5,7 +5,7 @@ import random
 pygame.init()
 
 screenX = 800
-screenY = 600
+screenY = 800
 
 # prepare stuff
 screen = pygame.display.set_mode((screenX, screenY))
@@ -25,7 +25,7 @@ bulletDamage = 1
 
 # enemies
 enemies = []
-enemySpawnDistance = 1000
+enemySpawnDistance = 800
 
 currentWave = 1
 currentWaveProgressing = False
@@ -69,31 +69,49 @@ def waves():
             createEnemy()
 
 def createEnemy():
-    enemySpeed = 4
+    enemySpeed = 0.5
     enemyHealth = 3
     enemyRadius = 20
 
     angle = random.uniform(0, 2*math.pi)
-    enemyDistance = enemySpawnDistance * random.uniform(0.9, 1.3)
+    enemyDistance = enemySpawnDistance * random.uniform(0.9, 2.2)
 
     enemyX = playerX + math.cos(angle) * enemyDistance
     enemyY = playerY + math.sin(angle) * enemyDistance
+
+    distanceX = playerX - enemyX
+    distanceY = playerY - enemyY
+
+    moveAngle = math.atan2(distanceY, distanceX)
 
     enemies.append({
         'x': enemyX,
         'y': enemyY,
         'speed': enemySpeed,
         'health': enemyHealth,
-        'radius': enemyRadius
+        'radius': enemyRadius,
+        'angle': moveAngle
     })
 
 def drawEnemy():
     for enemy in enemies:
+        angle = enemy['angle']
+        speed = enemy['speed']
+
+        movementX = math.cos(angle) * speed
+        movementY = math.sin(angle) * speed
+
         enemyX = enemy['x']
         enemyY = enemy['y']
+
+        enemyX += movementX
+        enemyY += movementY
+
         enemyRadius = enemy['radius']
         pygame.draw.circle(screen, (255, 0, 0), (int(enemyX), int(enemyY)), enemyRadius)
 
+        enemy['x'] = enemyX
+        enemy['y'] = enemyY
     
 def drawBullets():
     # bullet movement logics
