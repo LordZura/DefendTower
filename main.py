@@ -4,6 +4,9 @@ import random
 
 pygame.init()
 
+pygame.font.init()
+font = pygame.font.Font(None, 36)
+
 screenX = 800
 screenY = 800
 
@@ -35,12 +38,17 @@ firstWaveMinimum = 10
 firerate = 1000
 lastShot = 0
 
+points = 0
+
 
 def render():
     # renders everything
     pygame.draw.circle(screen, (0, 150, 255), (playerX, playerY), 20)
     drawBullets()
     drawEnemy()
+    waveText = font.render(f"Wave: {currentWave}", True, (255, 255, 255))
+    pointsText = font.render(f"Points: {points}", True, (255, 255, 255))
+    displayText(waveText, pointsText)
 
 
 def shoot():
@@ -178,6 +186,11 @@ def bulletCollision():
                 # one bullet can only hit one enemy
                 break
 
+def displayText(waveText, pointsText):
+    screen.blit(waveText, (20, 20))
+
+    pointsX = screenX - pointsText.get_width() - 20
+    screen.blit(pointsText, (pointsX, 20))
 
 def removeOffscreenBullets():
     # removes bullets that have travelled far outside the screen
