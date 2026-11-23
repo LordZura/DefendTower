@@ -67,13 +67,15 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
+            
+    mouseHeld = pygame.mouse.get_pressed()
 
-            currentTIme = pygame.time.get_ticks()
+    if mouseHeld[0]:
+        currentTIme = pygame.time.get_ticks()
 
-            if currentTIme - lastShot >= firerate:
-                shoot()
-                lastShot = currentTIme
+        if currentTIme - lastShot >= firerate:
+            shoot()
+            lastShot = currentTIme
 
     # filling screen
     screen.fill((25, 25, 30))
