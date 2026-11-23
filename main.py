@@ -1,4 +1,5 @@
 import pygame
+import math
 
 pygame.init()
 
@@ -14,18 +15,20 @@ running = True
 playerX = screenX // 2
 playerY = screenY // 2
 
-# draw stuff
-
+def shoot():
+    mouseX, mouseY = pygame.mouse.get_pos()
+    print(f"you clicked at: X: {mouseX} Y: {mouseY}")
 
 while running:
     # check if player exits
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            shoot()
 
     # filling screen
     screen.fill((25, 25, 30))
     pygame.draw.circle(screen, (0, 150, 255), (playerX, playerY), 20)
     pygame.display.flip()
     
-
