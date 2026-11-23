@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 pygame.init()
 
@@ -15,12 +16,23 @@ running = True
 playerX = screenX // 2
 playerY = screenY // 2
 
+# bullets
 bullets = []
 bulletRadius = 7
 bulletSpeed = 10
 bulletOffset = 25
+bulletDamage = 1
 
-firerate = 200
+# enemies
+enemies = []
+enemySpawnDistance = 1000
+
+currentWave = 1
+currentWaveProgressing = False
+progressingMultiplier = 1.3
+firstWaveMinimum = 10
+
+firerate = 1000
 lastShot = 0
 
 def render():
@@ -44,6 +56,27 @@ def shoot():
     bulletY = playerY + offsetY
 
     bullets.append([bulletX, bulletY, angle])
+
+
+def waves():
+    if not currentWaveProgressing:
+        for i in range(1, int(firstWaveMinimum * progressingMultiplier)):
+            createEnemy()
+
+
+def createEnemy():
+    enemySpeed = 4
+    enemyHealth = 3
+    enemyX = math.cos(random.uniform(0, 2*math.pi)) * ((playerX + enemySpawnDistance) * random.uniform(0.9, 1.3))
+    enemyY = math.sin(random.uniform(0, 2*math.pi)) * ((playerY + enemySpawnDistance) * random.uniform(0.9, 1.3))
+
+    enemies.append({
+        'x': enemyX,
+        'y': enemyY,
+        'speed': enemySpeed,
+        'health': enemyHealth
+    })
+    
 
 def drawBullets():
     # bullet movement logics
@@ -82,7 +115,10 @@ while running:
     render()
     pygame.display.flip()
 
+    waves()
+
     # fps limiter
     clock = pygame.time.Clock()
     clock.tick(60)
-    
+
+
