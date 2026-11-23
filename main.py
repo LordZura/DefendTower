@@ -66,4 +66,7 @@ while running:
     screen.fill((25, 25, 30))
     render()
     pygame.display.flip()
+
+    clock = pygame.time.Clock()
+    clock.tick(60)
     
