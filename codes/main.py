@@ -16,6 +16,10 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.MOUSEBUTTONDOWN:    
+            mouseX, mouseY = pygame.mouse.get_pos()
+            if mouseX > settings.screenX:
+                menu.buttonClickCheck()
 
     mouseHeld = pygame.mouse.get_pressed()
 
@@ -28,8 +32,7 @@ while running:
         if mouseX < settings.screenX and currentTime - gameData.lastShot >= gameData.firerate:
             player.shoot()
             gameData.lastShot = currentTime
-        elif mouseX > settings.screenX:
-            menu.buttonClickCheck()
+
 
     # filling screen
     settings.screen.fill((25, 25, 30))
