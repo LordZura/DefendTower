@@ -17,7 +17,7 @@ def waves():
 
 
 def createEnemy():
-    enemySpeed = 0.5
+    enemySpeed = 0.3
     enemyHealth = 3
     enemyRadius = 20
     enemyPoints = 5

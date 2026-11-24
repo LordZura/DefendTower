@@ -2,6 +2,7 @@ import gameData
 
 def upgrade(type):
 
+    
     if type == "damage":
         gameData.bulletDamage += 5
     elif type == "firerate":

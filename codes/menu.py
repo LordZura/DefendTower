@@ -1,5 +1,6 @@
 import pygame
 
+import gameData
 import upgrades
 import settings
 
@@ -12,6 +13,7 @@ buttonRect1 = pygame.Rect(settings.screenX + settings.buttonOffset, 100, buttonW
 buttonRect2 = pygame.Rect(settings.screenX + settings.buttonOffset, 100 + settings.buttonGap, buttonWidth, buttonHeight)
 buttonRect3 = pygame.Rect(settings.screenX + settings.buttonOffset, 100 + settings.buttonGap*2, buttonWidth, buttonHeight)
 buttonRect4 = pygame.Rect(settings.screenX + settings.buttonOffset, 100 + settings.buttonGap*3, buttonWidth, buttonHeight)
+
 
 def drawMenu():
     # menu background
@@ -63,10 +65,25 @@ def buttonClickCheck():
     mouseXY = pygame.mouse.get_pos()
     
     if buttonRect1.collidepoint(mouseXY):
-        upgrades.upgrade("damage")
+        if settings.button1Cost < gameData.points:
+            upgrades.upgrade("damage")
+        else:
+            purchaseFailed()
     elif buttonRect2.collidepoint(mouseXY):
-        upgrades.upgrade("firerate")
+        if settings.button2Cost < gameData.points:
+            upgrades.upgrade("firerate")
+        else:
+            purchaseFailed()
     elif buttonRect3.collidepoint(mouseXY):
-        upgrades.upgrade("regeneration")
+        if settings.button3Cost < gameData.points:
+            upgrades.upgrade("regeneration")
+        else:
+            purchaseFailed()
     elif buttonRect4.collidepoint(mouseXY):
-        upgrades.upgrade("penetration")
+        if settings.button1Cost < gameData.points:
+            upgrades.upgrade("penetration")
+        else:
+            purchaseFailed()
+
+def purchaseFailed():
+    print("cant buy yet")

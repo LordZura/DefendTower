@@ -23,8 +23,8 @@ bulletOffset = 25
 
 # enemies
 enemySpawnDistance = 800
-progressingMultiplier = 1.3
-firstWaveMinimum = 10
+progressingMultiplier = 1.5
+firstWaveMinimum = 50
 
 # menu
 menuBackground = (35, 35, 42)
@@ -33,3 +33,10 @@ buttonBorder = (100, 100, 115)
 menuTextColor = (255, 255, 255)
 buttonOffset = 15
 buttonGap = 80
+
+button1Cost = 20
+button2Cost = 20
+button3Cost = 20
+button4Cost = 20
+
+buttonCostMultiplier = 1.3
