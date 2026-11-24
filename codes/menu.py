@@ -83,7 +83,7 @@ def buttonClickCheck():
         else:
             purchaseFailed()
     elif buttonRect4.collidepoint(mouseXY):
-        if settings.button1Cost <= gameData.points:
+        if settings.button4Cost <= gameData.points:
             upgrades.upgrade("penetration")
             gameData.points -= settings.button4Cost
         else:

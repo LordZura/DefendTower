@@ -20,7 +20,6 @@ lastShot = 0
 
 points = 0
 
-enemyStats = {}
-enemyStats = settings.enemyStartingStats
+enemyStats = settings.enemyStartingStats.copy()
 
 enemyDifficulty = 1
