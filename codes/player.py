@@ -4,6 +4,7 @@ import pygame
 
 import settings
 import gameData
+import coolCursor
 
 
 lastRegen = pygame.time.get_ticks()
@@ -27,6 +28,8 @@ def shoot():
     life = gameData.penetration
 
     gameData.bullets.append([bulletX, bulletY, angle, life, []])
+
+    coolCursor.quickSpin()
 
 
 def drawBullets():
