@@ -55,4 +55,4 @@ def enemyCollision():
         distance = math.sqrt(distanceX ** 2 + distanceY ** 2)
 
         if distance <= 25 + enemy['radius']:
-            pass
+            gameData.playerHealth -= enemy['damage']

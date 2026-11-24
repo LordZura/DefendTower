@@ -1,5 +1,6 @@
 import pygame
 
+import coolCursor
 import settings
 import gameData
 import player
@@ -11,7 +12,7 @@ import menu
 running = True
 clock = pygame.time.Clock()
 
-while running:
+while running and not gameData.lost:
     # check if player exits
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -43,6 +44,7 @@ while running:
     player.removeOffscreenBullets()
     collision.enemyCollision()
     player.healthCheck()
+    coolCursor.update()
 
     pygame.display.flip()
 

@@ -69,6 +69,9 @@ def healthCheck():
 
     currentTime = pygame.time.get_ticks()
 
+    if gameData.playerHealth <= 0:
+        lose()
+
     # checks if player has regeneration
     if gameData.regen <= 0:
         lastRegen = currentTime
@@ -88,3 +91,7 @@ def healthCheck():
         gameData.playerHealth = min(gameData.playerHealth, gameData.playerMaxHealth)
 
         lastRegen = currentTime
+
+
+def lose():
+    gameData.lost = True
