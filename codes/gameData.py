@@ -23,3 +23,7 @@ points = 0
 enemyStats = settings.enemyStartingStats.copy()
 
 enemyDifficulty = 1
+
+playerMaxHealth = 1000
+playerHealth = playerMaxHealth
+regen = 0

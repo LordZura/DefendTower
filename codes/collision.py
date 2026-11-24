@@ -45,3 +45,7 @@ def bulletCollision():
 
                 # one bullet can only hit one new enemy per frame
                 break
+
+
+def  enemyCollision():
+    pass

@@ -48,3 +48,5 @@ enemyStartingStats = {
 }
 
 enemyDifficultyMultiplier = 1.8
+
+regenTime = 1000

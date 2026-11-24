@@ -8,6 +8,6 @@ def upgrade(type):
     elif type == "firerate":
         gameData.firerate *= 0.9
     elif type == "regeneration":
-        pass
+        gameData.regen += 10
     elif type == "penetration":
         gameData.penetration += 1

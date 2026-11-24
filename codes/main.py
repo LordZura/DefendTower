@@ -41,6 +41,8 @@ while running:
 
     collision.bulletCollision()
     player.removeOffscreenBullets()
+    collision.enemyCollision()
+    player.healthCheck()
 
     pygame.display.flip()
 

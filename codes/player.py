@@ -1,8 +1,12 @@
+
 import math
 import pygame
 
 import settings
 import gameData
+
+
+lastRegen = pygame.time.get_ticks()
 
 
 def shoot():
@@ -58,3 +62,29 @@ def removeOffscreenBullets():
         if (bulletX < -settings.bulletRadius or bulletX > settings.screenX + settings.bulletRadius or
                 bulletY < -settings.bulletRadius or bulletY > settings.screenY + settings.bulletRadius):
             gameData.bullets.remove(bullet)
+
+
+def healthCheck():
+    global lastRegen
+
+    currentTime = pygame.time.get_ticks()
+
+    # checks if player has regeneration
+    if gameData.regen <= 0:
+        lastRegen = currentTime
+        return
+
+    # checks if player has full health
+    if gameData.playerHealth >= gameData.playerMaxHealth:
+        gameData.playerHealth = gameData.playerMaxHealth
+        lastRegen = currentTime
+        return
+
+    # checks if enough time has passed
+    if currentTime - lastRegen >= settings.regenTime:
+        gameData.playerHealth += gameData.regen
+
+        # prevents health from exceeding maximum health
+        gameData.playerHealth = min(gameData.playerHealth, gameData.playerMaxHealth)
+
+        lastRegen = currentTime
