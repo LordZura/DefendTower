@@ -22,7 +22,10 @@ def bulletCollision():
             # checks if the bullet touches the enemy
             if distance <= settings.bulletRadius + enemy['radius']:
                 enemy['health'] -= gameData.bulletDamage
-                gameData.bullets.remove(bullet)
+                if bullet[3] >= 1:
+                    bullet[3] -= 1
+                else:
+                    gameData.bullets.remove(bullet)
 
                 # removes enemy when its health reaches zero
                 if enemy['health'] <= 0:

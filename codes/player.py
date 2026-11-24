@@ -20,7 +20,9 @@ def shoot():
     bulletX = gameData.playerX + offsetX
     bulletY = gameData.playerY + offsetY
 
-    gameData.bullets.append([bulletX, bulletY, angle])
+    life = gameData.penetration
+
+    gameData.bullets.append([bulletX, bulletY, angle, life])
 
 
 def drawBullets():

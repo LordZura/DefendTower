@@ -11,6 +11,7 @@ buttonHeight = 55
 buttonRect1 = pygame.Rect(settings.screenX + settings.buttonOffset, 100, buttonWidth, buttonHeight)
 buttonRect2 = pygame.Rect(settings.screenX + settings.buttonOffset, 100 + settings.buttonGap, buttonWidth, buttonHeight)
 buttonRect3 = pygame.Rect(settings.screenX + settings.buttonOffset, 100 + settings.buttonGap*2, buttonWidth, buttonHeight)
+buttonRect4 = pygame.Rect(settings.screenX + settings.buttonOffset, 100 + settings.buttonGap*3, buttonWidth, buttonHeight)
 
 def drawMenu():
     # menu background
@@ -28,6 +29,7 @@ def drawMenu():
     drawButton("Increase Damage", settings.screenX + settings.buttonOffset, 100)
     drawButton("Increase Fire Rate", settings.screenX + settings.buttonOffset, 100 + settings.buttonGap)
     drawButton("Regeneration", settings.screenX + settings.buttonOffset, 100 + settings.buttonGap*2)
+    drawButton("Penetration", settings.screenX + settings.buttonOffset, 100 + settings.buttonGap*3)
 
 
 def drawButton(buttonText, buttonX, buttonY):
@@ -66,3 +68,5 @@ def buttonClickCheck():
         upgrades.upgrade("firerate")
     elif buttonRect3.collidepoint(mouseXY):
         upgrades.upgrade("regeneration")
+    elif buttonRect4.collidepoint(mouseXY):
+        upgrades.upgrade("penetration")
