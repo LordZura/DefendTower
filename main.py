@@ -45,8 +45,15 @@ lastShot = 0
 
 points = 0
 
+# menu
+menuBackground = (35, 35, 42)
+buttonColor = (55, 55, 65)
+buttonBorder = (100, 100, 115)
+menuTextColor = (255, 255, 255)
+
 
 def render():
+    # renders everything
     pygame.draw.circle(screen, (0, 150, 255), (playerX, playerY), 20)
     drawBullets()
     drawEnemy()
@@ -59,6 +66,7 @@ def render():
 
 
 def shoot():
+    # shooting positioning logics
     mouseX, mouseY = pygame.mouse.get_pos()
 
     distanceX = mouseX - playerX
@@ -96,6 +104,7 @@ def createEnemy():
     angle = random.uniform(0, 2 * math.pi)
     enemyDistance = random.uniform(enemySpawnDistance, enemySpawnDistance * 2.2)
 
+    # spawn relative to the center of the screen
     enemyX = playerX + math.cos(angle) * enemyDistance
     enemyY = playerY + math.sin(angle) * enemyDistance
 
@@ -129,14 +138,21 @@ def drawEnemy():
         enemyX += movementX
         enemyY += movementY
 
-        pygame.draw.circle(screen, (255, 0, 0),
-                           (int(enemyX), int(enemyY)), enemy['radius'])
+        enemyRadius = enemy['radius']
+
+        pygame.draw.circle(
+            screen,
+            (255, 0, 0),
+            (int(enemyX), int(enemyY)),
+            enemyRadius
+        )
 
         enemy['x'] = enemyX
         enemy['y'] = enemyY
 
 
 def drawBullets():
+    # bullet movement logics
     for bullet in bullets:
         angle = bullet[2]
 
@@ -145,8 +161,12 @@ def drawBullets():
 
         bulletX, bulletY = bullet[0], bullet[1]
 
-        pygame.draw.circle(screen, (0, 255, 255),
-                           (int(bulletX), int(bulletY)), bulletRadius)
+        pygame.draw.circle(
+            screen,
+            (0, 255, 255),
+            (int(bulletX), int(bulletY)),
+            bulletRadius
+        )
 
         bulletX += movementX
         bulletY += movementY
@@ -158,6 +178,7 @@ def drawBullets():
 def bulletCollision():
     global points
 
+    # checks every bullet against every enemy
     for bullet in bullets[:]:
         bulletX = bullet[0]
         bulletY = bullet[1]
@@ -171,14 +192,17 @@ def bulletCollision():
 
             distance = math.sqrt(distanceX ** 2 + distanceY ** 2)
 
+            # checks if the bullet touches the enemy
             if distance <= bulletRadius + enemy['radius']:
                 enemy['health'] -= bulletDamage
                 bullets.remove(bullet)
 
+                # removes enemy when its health reaches zero
                 if enemy['health'] <= 0:
                     enemies.remove(enemy)
                     points += enemy['points']
 
+                # one bullet can only hit one enemy
                 break
 
 
@@ -190,12 +214,15 @@ def displayText(waveText, pointsText):
 
 
 def drawMenu():
-    pygame.draw.rect(screen, (35, 35, 42), (screenX, 0, menuX, screenY))
+    # menu background
+    pygame.draw.rect(screen, menuBackground, (screenX, 0, menuX, screenY))
 
+    # menu separator
     pygame.draw.line(screen, (100, 100, 110),
                      (screenX, 0), (screenX, screenY), 2)
 
-    menuTitle = menuFont.render("UPGRADES", True, (255, 255, 255))
+    # menu title
+    menuTitle = menuFont.render("UPGRADES", True, menuTextColor)
     screen.blit(menuTitle, (screenX + 35, 30))
 
     # upgrade buttons
@@ -209,17 +236,24 @@ def drawButton(buttonText, buttonX, buttonY):
     buttonHeight = 55
 
     # button background
-    pygame.draw.rect(screen, (55, 55, 65),
-                     (buttonX, buttonY, buttonWidth, buttonHeight),
-                     border_radius=8)
+    pygame.draw.rect(
+        screen,
+        buttonColor,
+        (buttonX, buttonY, buttonWidth, buttonHeight),
+        border_radius=8
+    )
 
     # button border
-    pygame.draw.rect(screen, (100, 100, 115),
-                     (buttonX, buttonY, buttonWidth, buttonHeight),
-                     2, border_radius=8)
+    pygame.draw.rect(
+        screen,
+        buttonBorder,
+        (buttonX, buttonY, buttonWidth, buttonHeight),
+        2,
+        border_radius=8
+    )
 
     # button text
-    text = buttonFont.render(buttonText, True, (255, 255, 255))
+    text = buttonFont.render(buttonText, True, menuTextColor)
 
     textX = buttonX + (buttonWidth - text.get_width()) // 2
     textY = buttonY + (buttonHeight - text.get_height()) // 2
@@ -228,6 +262,7 @@ def drawButton(buttonText, buttonX, buttonY):
 
 
 def removeOffscreenBullets():
+    # removes bullets that have travelled far outside the screen
     for bullet in bullets[:]:
         bulletX = bullet[0]
         bulletY = bullet[1]
@@ -240,6 +275,7 @@ def removeOffscreenBullets():
 clock = pygame.time.Clock()
 
 while running:
+    # check if player exits
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -248,12 +284,15 @@ while running:
 
     if mouseHeld[0]:
         currentTime = pygame.time.get_ticks()
+
         mouseX, mouseY = pygame.mouse.get_pos()
 
+        # only shoot inside the game area
         if mouseX < screenX and currentTime - lastShot >= firerate:
             shoot()
             lastShot = currentTime
 
+    # filling screen
     screen.fill((25, 25, 30))
 
     render()
@@ -269,6 +308,7 @@ while running:
         currentWave += 1
         currentWaveProgressing = False
 
+    # fps limiter
     clock.tick(60)
 
 pygame.quit()
