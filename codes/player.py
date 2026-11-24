@@ -22,7 +22,7 @@ def shoot():
 
     life = gameData.penetration
 
-    gameData.bullets.append([bulletX, bulletY, angle, life])
+    gameData.bullets.append([bulletX, bulletY, angle, life, []])
 
 
 def drawBullets():

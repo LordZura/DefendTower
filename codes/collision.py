@@ -11,6 +11,11 @@ def bulletCollision():
         bulletY = bullet[1]
 
         for enemy in gameData.enemies[:]:
+
+            # checks if this bullet has already hit this enemy
+            if any(hitEnemy is enemy for hitEnemy in bullet[4]):
+                continue
+
             enemyX = enemy['x']
             enemyY = enemy['y']
 
@@ -21,7 +26,13 @@ def bulletCollision():
 
             # checks if the bullet touches the enemy
             if distance <= settings.bulletRadius + enemy['radius']:
+
+                # remembers that this bullet hit this enemy
+                bullet[4].append(enemy)
+
                 enemy['health'] -= gameData.bulletDamage
+
+                # checks bullet penetration
                 if bullet[3] >= 1:
                     bullet[3] -= 1
                 else:
@@ -32,5 +43,5 @@ def bulletCollision():
                     gameData.enemies.remove(enemy)
                     gameData.points += enemy['points']
 
-                # one bullet can only hit one enemy
+                # one bullet can only hit one new enemy per frame
                 break
