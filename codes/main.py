@@ -6,6 +6,7 @@ import player
 import enemy
 import collision
 import render
+import menu
 
 running = True
 clock = pygame.time.Clock()
@@ -27,6 +28,8 @@ while running:
         if mouseX < settings.screenX and currentTime - gameData.lastShot >= gameData.firerate:
             player.shoot()
             gameData.lastShot = currentTime
+        elif mouseX > settings.screenX:
+            menu.buttonClickCheck()
 
     # filling screen
     settings.screen.fill((25, 25, 30))

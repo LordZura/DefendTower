@@ -31,3 +31,5 @@ menuBackground = (35, 35, 42)
 buttonColor = (55, 55, 65)
 buttonBorder = (100, 100, 115)
 menuTextColor = (255, 255, 255)
+buttonOffset = 15
+buttonGap = 80

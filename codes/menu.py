@@ -3,6 +3,14 @@ import pygame
 import settings
 
 
+
+buttonWidth = 170
+buttonHeight = 55
+
+buttonRect1 = pygame.Rect(settings.screenX + settings.buttonOffset, 100, buttonWidth, buttonHeight)
+buttonRect2 = pygame.Rect(settings.screenX + settings.buttonOffset, 100 + settings.buttonGap, buttonWidth, buttonHeight)
+buttonRect3 = pygame.Rect(settings.screenX + settings.buttonOffset, 100 + settings.buttonGap*2, buttonWidth, buttonHeight)
+
 def drawMenu():
     # menu background
     pygame.draw.rect(settings.screen, settings.menuBackground, (settings.screenX, 0, settings.menuX, settings.screenY))
@@ -16,21 +24,18 @@ def drawMenu():
     settings.screen.blit(menuTitle, (settings.screenX + 35, 30))
 
     # upgrade buttons
-    drawButton("Increase Damage", settings.screenX + 15, 100)
-    drawButton("Increase Fire Rate", settings.screenX + 15, 180)
-    drawButton("Regeneration", settings.screenX + 15, 260)
+    drawButton("Increase Damage", settings.screenX + settings.buttonOffset, 100)
+    drawButton("Increase Fire Rate", settings.screenX + settings.buttonOffset, 100 + settings.buttonGap)
+    drawButton("Regeneration", settings.screenX + settings.buttonOffset, 100 + settings.buttonGap*2)
 
 
 def drawButton(buttonText, buttonX, buttonY):
-    buttonWidth = 170
-    buttonHeight = 55
 
     # button background
     pygame.draw.rect(
         settings.screen,
         settings.buttonColor,
-        (buttonX, buttonY, buttonWidth, buttonHeight),
-        border_radius=8
+        (buttonX, buttonY, buttonWidth, buttonHeight)
     )
 
     # button border
@@ -38,8 +43,8 @@ def drawButton(buttonText, buttonX, buttonY):
         settings.screen,
         settings.buttonBorder,
         (buttonX, buttonY, buttonWidth, buttonHeight),
-        2,
-        border_radius=8
+        3,
+        border_radius = 5
     )
 
     # button text
@@ -49,3 +54,10 @@ def drawButton(buttonText, buttonX, buttonY):
     textY = buttonY + (buttonHeight - text.get_height()) // 2
 
     settings.screen.blit(text, (textX, textY))
+
+
+def buttonClickCheck():
+    mouseXY = pygame.mouse.get_pos()
+    
+    if buttonRect1.collidepoint(mouseXY):
+        print("button 1 clicked")
