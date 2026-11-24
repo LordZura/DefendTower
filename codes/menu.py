@@ -67,21 +67,25 @@ def buttonClickCheck():
     if buttonRect1.collidepoint(mouseXY):
         if settings.button1Cost < gameData.points:
             upgrades.upgrade("damage")
+            gameData.points -= settings.button1Cost
         else:
             purchaseFailed()
     elif buttonRect2.collidepoint(mouseXY):
         if settings.button2Cost < gameData.points:
             upgrades.upgrade("firerate")
+            gameData.points -= settings.button2Cost
         else:
             purchaseFailed()
     elif buttonRect3.collidepoint(mouseXY):
         if settings.button3Cost < gameData.points:
             upgrades.upgrade("regeneration")
+            gameData.points -= settings.button3Cost
         else:
             purchaseFailed()
     elif buttonRect4.collidepoint(mouseXY):
         if settings.button1Cost < gameData.points:
             upgrades.upgrade("penetration")
+            gameData.points -= settings.button4Cost
         else:
             purchaseFailed()
 
