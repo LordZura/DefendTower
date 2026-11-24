@@ -1,0 +1,20 @@
+import settings
+
+# player
+playerX = settings.screenX // 2
+playerY = settings.screenY // 2
+
+# bullets
+bullets = []
+bulletDamage = 1
+
+# enemies
+enemies = []
+
+currentWave = 1
+currentWaveProgressing = False
+
+firerate = 1000
+lastShot = 0
+
+points = 0
