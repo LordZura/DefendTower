@@ -6,7 +6,7 @@ playerY = settings.screenY // 2
 
 # bullets
 bullets = []
-bulletDamage = 1
+bulletDamage = 5
 penetration = 0
 
 # enemies

@@ -47,5 +47,12 @@ def bulletCollision():
                 break
 
 
-def  enemyCollision():
-    pass
+def enemyCollision():
+    for enemy in gameData.enemies[:]:
+        distanceX = gameData.playerX - enemy['x']
+        distanceY = gameData.playerY - enemy['y']
+
+        distance = math.sqrt(distanceX ** 2 + distanceY ** 2)
+
+        if distance <= 25 + enemy['radius']:
+            pass
