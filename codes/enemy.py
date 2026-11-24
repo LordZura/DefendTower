@@ -12,13 +12,17 @@ def waves():
 
         enemyAmount = int(settings.firstWaveMinimum * (settings.progressingMultiplier ** (gameData.currentWave - 1)))
 
+        if gameData.currentWave > 1:
+            gameData.enemyDifficulty = settings.enemyDifficultyMultiplier * gameData.currentWave 
+
         for i in range(enemyAmount):
             createEnemy()
 
 
 def createEnemy():
-    enemySpeed = 0.3
-    enemyHealth = 3
+    enemySpeed = gameData.enemyStats['speed'] * (gameData.enemyDifficulty * 0.75)
+    enemyHealth = gameData.enemyStats['health'] * gameData.enemyDifficulty
+    enemyDamage = gameData.enemyStats['damage'] * gameData.enemyDifficulty
     enemyRadius = 20
     enemyPoints = 5
 
@@ -41,7 +45,8 @@ def createEnemy():
         'health': enemyHealth,
         'radius': enemyRadius,
         'angle': moveAngle,
-        'points': enemyPoints
+        'points': enemyPoints,
+        'damage': enemyDamage
     })
 
 

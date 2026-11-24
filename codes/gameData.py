@@ -19,3 +19,8 @@ firerate = 1000
 lastShot = 0
 
 points = 0
+
+enemyStats = {}
+enemyStats = settings.enemyStartingStats
+
+enemyDifficulty = 1

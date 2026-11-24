@@ -40,3 +40,11 @@ button3Cost = 20
 button4Cost = 20
 
 buttonCostMultiplier = 1.3
+
+enemyStartingStats = {
+    "speed": 0.3,
+    "health": 20,
+    "damage": 5
+}
+
+enemyDifficultyMultiplier = 1.8
