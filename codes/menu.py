@@ -1,5 +1,6 @@
 import pygame
 
+import upgrades
 import settings
 
 
@@ -60,4 +61,8 @@ def buttonClickCheck():
     mouseXY = pygame.mouse.get_pos()
     
     if buttonRect1.collidepoint(mouseXY):
-        print("button 1 clicked")
+        upgrades.upgrade("damage")
+    elif buttonRect2.collidepoint(mouseXY):
+        upgrades.upgrade("firerate")
+    elif buttonRect3.collidepoint(mouseXY):
+        upgrades.upgrade("regeneration")
