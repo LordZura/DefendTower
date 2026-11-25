@@ -1,13 +1,14 @@
-import numpy as np
-import pygame
-import random
-import math
 import soundService
 
 
-shootSound = soundService.createTone(700, 0.1, 0.25)
-hitSound = soundService.createTone(100, 0.1, 0.25)
-killSound = soundService.createTone(50, 0.2, 0.3)
+shootSound = soundService.createTone(900, 0.07, 0.18, "square", 350)
+hitSound = soundService.createTone(180, 0.06, 0.25, "noise")
+killSound = soundService.createTone(650, 0.18, 0.22, "triangle", 120)
+
+purchaseFailed = soundService.createSequence([
+    (420, 0.09, 300),
+    (260, 0.16, 150)
+], 0.22, "square")
 
 
 def playSound(which):

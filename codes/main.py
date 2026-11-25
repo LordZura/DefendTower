@@ -41,10 +41,10 @@ while running and not gameData.lost:
     # filling screen
     settings.screen.fill((25, 25, 30))
 
-    coolCursor.update()
+
 
     render.render()
-
+    coolCursor.update()
     collision.bulletCollision()
     player.removeOffscreenBullets()
     collision.enemyCollision()

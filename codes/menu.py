@@ -3,6 +3,7 @@ import pygame
 import gameData
 import upgrades
 import settings
+import sounds
 
 
 
@@ -90,4 +91,4 @@ def buttonClickCheck():
             purchaseFailed()
 
 def purchaseFailed():
-    print("cant buy yet")
+    sounds.playSound(sounds.purchaseFailed)
