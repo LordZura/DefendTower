@@ -2,7 +2,7 @@ import math
 
 import settings
 import gameData
-
+import sounds
 
 def bulletCollision():
     # checks every bullet against every enemy
@@ -31,6 +31,8 @@ def bulletCollision():
                 bullet[4].append(enemy)
 
                 enemy['health'] -= gameData.bulletDamage
+                sounds.playSound(sounds.hitSound)
+
 
                 # checks bullet penetration
                 if bullet[3] >= 1:
@@ -42,6 +44,7 @@ def bulletCollision():
                 if enemy['health'] <= 0:
                     gameData.enemies.remove(enemy)
                     gameData.points += enemy['points']
+                    sounds.playSound(sounds.killSound)
 
                 # one bullet can only hit one new enemy per frame
                 break

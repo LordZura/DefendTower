@@ -4,6 +4,7 @@ import pygame
 
 import settings
 import gameData
+import sounds
 
 
 def waves():
