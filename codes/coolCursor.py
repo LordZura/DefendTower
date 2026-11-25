@@ -1,5 +1,6 @@
 import pygame
 import settings
+import gameData
 
 angle = 0
 lastTime = pygame.time.get_ticks()
@@ -46,3 +47,5 @@ def update():
     cursorRect = cursor.get_rect(center=(mouseX, mouseY))
 
     settings.screen.blit(cursor, cursorRect)
+
+    pygame.draw.line(settings.screen, (255, 255, 255), (int(gameData.playerX), (gameData.playerY)), (mouseX, mouseY))
