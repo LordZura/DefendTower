@@ -48,4 +48,4 @@ def update():
 
     settings.screen.blit(cursor, cursorRect)
 
-    pygame.draw.line(settings.screen, (255, 255, 255), (int(gameData.playerX), (gameData.playerY)), (mouseX, mouseY))
+    pygame.draw.line(settings.screen, (200, 200, 200), (int(gameData.playerX), (gameData.playerY)), (mouseX, mouseY))

@@ -18,7 +18,7 @@ pygame.display.set_caption("Defend Tower")
 
 # bullets
 bulletRadius = 7
-bulletSpeed = 10
+bulletSpeed = 20
 bulletOffset = 25
 
 # enemies

@@ -39,13 +39,14 @@ while running and not gameData.lost:
     # filling screen
     settings.screen.fill((25, 25, 30))
 
+    coolCursor.update()
+
     render.render()
 
     collision.bulletCollision()
     player.removeOffscreenBullets()
     collision.enemyCollision()
     player.healthCheck()
-    coolCursor.update()
 
     pygame.display.flip()
 
