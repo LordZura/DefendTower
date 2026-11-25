@@ -44,7 +44,7 @@ def drawBullets():
 
         pygame.draw.circle(
             settings.screen,
-            (0, 255, 255),
+            (255, 255, 255),
             (int(bulletX), int(bulletY)),
             settings.bulletRadius
         )

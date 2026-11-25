@@ -5,25 +5,28 @@ angle = 0
 lastTime = pygame.time.get_ticks()
 spinUntil = 0
 
+cursorSize = 20
+targetSize = 20
+
 def quickSpin():
     global spinUntil
     spinUntil = pygame.time.get_ticks() + 400
 
 def update():
-    global angle, lastTime
+    global angle, lastTime, cursorSize, targetSize
 
     mouseX, mouseY = pygame.mouse.get_pos()
-
-    lineWidth, lineHeight = 20, 3
-
-    cursor = pygame.Surface((lineWidth, lineWidth), pygame.SRCALPHA)
-
-    pygame.draw.rect(cursor, (255, 255, 255), (0, lineWidth//2-lineHeight//2, lineWidth, lineHeight))
-    pygame.draw.rect(cursor, (255, 255, 255), (lineWidth//2-lineHeight//2, 0, lineHeight, lineWidth))
 
     currentTime = pygame.time.get_ticks()
     dt = (currentTime - lastTime) / 1000
     lastTime = currentTime
+
+    if mouseX > settings.screenX:
+        targetSize = 35
+    else:
+        targetSize = 20
+
+    cursorSize += (targetSize - cursorSize) * min(dt * 8, 1)
 
     spinSpeed = 30
 
@@ -32,6 +35,14 @@ def update():
 
     angle += spinSpeed * dt
 
+    cursor = pygame.Surface((20, 20), pygame.SRCALPHA)
+
+    pygame.draw.rect(cursor, (255, 255, 255), (0, 9, 20, 3))
+    pygame.draw.rect(cursor, (255, 255, 255), (9, 0, 3, 20))
+
+    cursor = pygame.transform.scale(cursor, (int(cursorSize), int(cursorSize)))
     cursor = pygame.transform.rotate(cursor, angle)
+
     cursorRect = cursor.get_rect(center=(mouseX, mouseY))
+
     settings.screen.blit(cursor, cursorRect)

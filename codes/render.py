@@ -9,7 +9,7 @@ import menu
 
 def render():
     # renders everything
-    pygame.draw.circle(settings.screen, (0, 150, 255), (gameData.playerX, gameData.playerY), 20)
+    pygame.draw.circle(settings.screen, (255, 255, 255), (gameData.playerX, gameData.playerY), 20)
     player.drawBullets()
     enemy.drawEnemy()
 

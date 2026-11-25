@@ -11,6 +11,7 @@ import menu
 
 running = True
 clock = pygame.time.Clock()
+pygame.mouse.set_visible(False)
 
 while running and not gameData.lost:
     # check if player exits
