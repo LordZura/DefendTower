@@ -8,6 +8,7 @@ import enemy
 import collision
 import render
 import menu
+import sounds
 
 running = True
 clock = pygame.time.Clock()
@@ -34,6 +35,7 @@ while running and not gameData.lost:
         if mouseX < settings.screenX and currentTime - gameData.lastShot >= gameData.firerate:
             player.shoot()
             gameData.lastShot = currentTime
+            sounds.playSound(sounds.shootSound)
 
 
     # filling screen
